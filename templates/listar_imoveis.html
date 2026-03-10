@@ -1,0 +1,48 @@
+<h2>Imóveis Cadastrados</h2>
+
+<table border="1">
+
+<tr>
+<th>ID</th>
+<th>Endereço</th>
+<th>Cidade</th>
+<th>Valor</th>
+<th>Quartos</th>
+<th>Banheiros</th>
+<th>Ações</th>
+</tr>
+
+{% for imovel in imoveis %}
+
+<tr>
+
+<td>{{ imovel[0] }}</td>
+<td>{{ imovel[1] }}</td>
+<td>{{ imovel[2] }}</td>
+<td>{{ imovel[3] }}</td>
+<td>{{ imovel[4] }}</td>
+<td>{{ imovel[5] }}</td>
+
+<td>
+
+<a href="/editar/{{ imovel[0] }}">
+<button>Editar</button>
+</a>
+
+<a href="/deletar/{{ imovel[0] }}">
+<button>Excluir</button>
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/">
+Voltar ao menu
+</a>

@@ -1,0 +1,32 @@
+<h2>Editar Imóvel</h2>
+
+<form action="/atualizar" method="post">
+
+<input type="hidden" name="id" value="{{ imovel[0] }}">
+
+Endereço:<br>
+<input type="text" name="endereco" value="{{ imovel[1] }}"><br><br>
+
+Cidade:<br>
+<input type="text" name="cidade" value="{{ imovel[2] }}"><br><br>
+
+Valor:<br>
+<input type="number" name="valor" value="{{ imovel[3] }}"><br><br>
+
+Quartos:<br>
+<input type="number" name="quartos" value="{{ imovel[4] }}"><br><br>
+
+Banheiros:<br>
+<input type="number" name="banheiros" value="{{ imovel[5] }}"><br><br>
+
+<button type="submit">
+Atualizar
+</button>
+
+</form>
+
+<br>
+
+<a href="/imoveis">
+Voltar
+</a>
