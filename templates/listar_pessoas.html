@@ -1,6 +1,12 @@
-<h2>Pessoas Cadastradas</h2>
+{% extends "base.html" %}
 
-<table border="1">
+{% block conteudo %}
+
+<h2 class="mb-3">Pessoas Cadastradas</h2>
+
+<table class="table table-striped table-bordered">
+
+<thead class="table-dark">
 
 <tr>
 <th>ID</th>
@@ -10,6 +16,10 @@
 <th>CPF</th>
 <th>Ações</th>
 </tr>
+
+</thead>
+
+<tbody>
 
 {% for pessoa in pessoas %}
 
@@ -23,12 +33,12 @@
 
 <td>
 
-<a href="/editar_pessoa/{{ pessoa[0] }}">
-<button>Editar</button>
+<a href="/editar_pessoa/{{ pessoa[0] }}" class="btn btn-warning btn-sm">
+Editar
 </a>
 
-<a href="/deletar_pessoa/{{ pessoa[0] }}">
-<button>Excluir</button>
+<a href="/deletar_pessoa/{{ pessoa[0] }}" class="btn btn-danger btn-sm">
+Excluir
 </a>
 
 </td>
@@ -37,10 +47,8 @@
 
 {% endfor %}
 
+</tbody>
+
 </table>
 
-<br>
-
-<a href="/">
-Voltar ao menu
-</a>
+{% endblock %}

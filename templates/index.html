@@ -1,29 +1,35 @@
-<h1>Sistema Imobiliário</h1>
+{% extends 'base.html' %}
 
-<br>
+{% block conteudo %}
 
-<h2>Imóveis</h2>
+<h2 class="mb-4">Sistema de Gestão Imobiliária</h2>
 
-<a href="/cadastrar">
-<button>Cadastrar Imóvel</button>
+<div class="row">
+
+<div class="col-md-4">
+
+<a href="/cadastrar" class="btn btn-primary w-100 mb-3">
+Cadastrar Imóvel
 </a>
 
-<br><br>
+</div>
 
-<a href="/imoveis">
-<button>Visualizar Imóveis</button>
+<div class="col-md-4">
+
+<a href="/imoveis" class="btn btn-success w-100 mb-3">
+Visualizar Imóveis
 </a>
 
-<br><br><br>
+</div>
 
-<h2>Pessoas</h2>
+<div class="col-md-4">
 
-<a href="/cadastrar_pessoa">
-<button>Cadastrar Pessoa</button>
+<a href="/pessoas" class="btn btn-warning w-100 mb-3">
+Visualizar Pessoas
 </a>
 
-<br><br>
+</div>
 
-<a href="/pessoas">
-<button>Visualizar Pessoas</button>
-</a>
+</div>
+
+{% endblock %}

@@ -1,27 +1,35 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
 <h2>Cadastrar Pessoa</h2>
 
 <form action="/salvar_pessoa" method="post">
 
-Nome:<br>
-<input type="text" name="nome"><br><br>
+<div class="mb-3">
+<label>Nome</label>
+<input type="text" name="nome" class="form-control">
+</div>
 
-Telefone:<br>
-<input type="text" name="telefone"><br><br>
+<div class="mb-3">
+<label>Telefone</label>
+<input type="text" name="telefone" class="form-control">
+</div>
 
-Email:<br>
-<input type="text" name="email"><br><br>
+<div class="mb-3">
+<label>Email</label>
+<input type="text" name="email" class="form-control">
+</div>
 
-CPF:<br>
-<input type="text" name="cpf"><br><br>
+<div class="mb-3">
+<label>CPF</label>
+<input type="text" name="cpf" class="form-control">
+</div>
 
-<button type="submit">
+<button class="btn btn-success">
 Salvar
 </button>
 
 </form>
 
-<br>
-
-<a href="/">
-Voltar
-</a>
+{% endblock %}
