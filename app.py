@@ -15,7 +15,7 @@ def index():
 
 
 # ------------------------------
-# TELA DE CADASTRO
+# TELA DE CADASTRO DE IMOVEL
 # ------------------------------
 @app.route("/cadastrar")
 def cadastrar():
@@ -24,7 +24,7 @@ def cadastrar():
 
 
 # ------------------------------
-# SALVAR IMÓVEL
+# SALVAR IMOVEL
 # ------------------------------
 @app.route("/salvar", methods=["POST"])
 def salvar():
@@ -57,7 +57,7 @@ def salvar():
 
 
 # ------------------------------
-# VISUALIZAR IMÓVEIS
+# LISTAR IMOVEIS
 # ------------------------------
 @app.route("/imoveis")
 def visualizar_imoveis():
@@ -78,7 +78,7 @@ def visualizar_imoveis():
 
 
 # ------------------------------
-# DELETAR IMÓVEL
+# DELETAR IMOVEL
 # ------------------------------
 @app.route("/deletar/<int:id>")
 def deletar(id):
@@ -99,7 +99,7 @@ def deletar(id):
 
 
 # ------------------------------
-# TELA DE EDITAR
+# EDITAR IMOVEL
 # ------------------------------
 @app.route("/editar/<int:id>")
 def editar(id):
@@ -120,7 +120,7 @@ def editar(id):
 
 
 # ------------------------------
-# ATUALIZAR IMÓVEL
+# ATUALIZAR IMOVEL
 # ------------------------------
 @app.route("/atualizar", methods=["POST"])
 def atualizar():
@@ -153,5 +153,149 @@ def atualizar():
     return redirect("/imoveis")
 
 
+# ==============================
+# CRUD DE PESSOAS
+# ==============================
+
+# ------------------------------
+# CADASTRAR PESSOA
+# ------------------------------
+@app.route("/cadastrar_pessoa")
+def cadastrar_pessoa():
+
+    return render_template("cadastrar_pessoa.html")
+
+
+# ------------------------------
+# SALVAR PESSOA
+# ------------------------------
+@app.route("/salvar_pessoa", methods=["POST"])
+def salvar_pessoa():
+
+    nome = request.form["nome"]
+    telefone = request.form["telefone"]
+    email = request.form["email"]
+    cpf = request.form["cpf"]
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = """
+    INSERT INTO pessoas
+    (nome,telefone,email,cpf)
+    VALUES (%s,%s,%s,%s)
+    """
+
+    dados = (nome, telefone, email, cpf)
+
+    cursor.execute(sql, dados)
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return redirect("/")
+
+
+# ------------------------------
+# LISTAR PESSOAS
+# ------------------------------
+@app.route("/pessoas")
+def listar_pessoas():
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "SELECT * FROM pessoas"
+
+    cursor.execute(sql)
+
+    pessoas = cursor.fetchall()
+
+    cursor.close()
+    conexao.close()
+
+    return render_template("listar_pessoas.html", pessoas=pessoas)
+
+
+# ------------------------------
+# DELETAR PESSOA
+# ------------------------------
+@app.route("/deletar_pessoa/<int:id>")
+def deletar_pessoa(id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "DELETE FROM pessoas WHERE id = %s"
+
+    cursor.execute(sql, (id,))
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return redirect("/pessoas")
+
+
+# ------------------------------
+# EDITAR PESSOA
+# ------------------------------
+@app.route("/editar_pessoa/<int:id>")
+def editar_pessoa(id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "SELECT * FROM pessoas WHERE id = %s"
+
+    cursor.execute(sql, (id,))
+
+    pessoa = cursor.fetchone()
+
+    cursor.close()
+    conexao.close()
+
+    return render_template("editar_pessoa.html", pessoa=pessoa)
+
+
+# ------------------------------
+# ATUALIZAR PESSOA
+# ------------------------------
+@app.route("/atualizar_pessoa", methods=["POST"])
+def atualizar_pessoa():
+
+    id = request.form["id"]
+    nome = request.form["nome"]
+    telefone = request.form["telefone"]
+    email = request.form["email"]
+    cpf = request.form["cpf"]
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = """
+    UPDATE pessoas
+    SET nome=%s, telefone=%s, email=%s, cpf=%s
+    WHERE id=%s
+    """
+
+    dados = (nome, telefone, email, cpf, id)
+
+    cursor.execute(sql, dados)
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return redirect("/pessoas")
+
+
+# ------------------------------
+# INICIAR SERVIDOR
+# ------------------------------
 if __name__ == "__main__":
     app.run(debug=True)

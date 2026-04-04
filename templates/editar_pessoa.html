@@ -1,0 +1,29 @@
+<h2>Editar Pessoa</h2>
+
+<form action="/atualizar_pessoa" method="post">
+
+<input type="hidden" name="id" value="{{ pessoa[0] }}">
+
+Nome:<br>
+<input type="text" name="nome" value="{{ pessoa[1] }}"><br><br>
+
+Telefone:<br>
+<input type="text" name="telefone" value="{{ pessoa[2] }}"><br><br>
+
+Email:<br>
+<input type="text" name="email" value="{{ pessoa[3] }}"><br><br>
+
+CPF:<br>
+<input type="text" name="cpf" value="{{ pessoa[4] }}"><br><br>
+
+<button type="submit">
+Atualizar
+</button>
+
+</form>
+
+<br>
+
+<a href="/pessoas">
+Voltar
+</a>

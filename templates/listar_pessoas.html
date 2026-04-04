@@ -1,0 +1,46 @@
+<h2>Pessoas Cadastradas</h2>
+
+<table border="1">
+
+<tr>
+<th>ID</th>
+<th>Nome</th>
+<th>Telefone</th>
+<th>Email</th>
+<th>CPF</th>
+<th>Ações</th>
+</tr>
+
+{% for pessoa in pessoas %}
+
+<tr>
+
+<td>{{ pessoa[0] }}</td>
+<td>{{ pessoa[1] }}</td>
+<td>{{ pessoa[2] }}</td>
+<td>{{ pessoa[3] }}</td>
+<td>{{ pessoa[4] }}</td>
+
+<td>
+
+<a href="/editar_pessoa/{{ pessoa[0] }}">
+<button>Editar</button>
+</a>
+
+<a href="/deletar_pessoa/{{ pessoa[0] }}">
+<button>Excluir</button>
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/">
+Voltar ao menu
+</a>
