@@ -2,33 +2,63 @@
 
 {% block conteudo %}
 
-<h2 class="mb-4">Sistema de Gestão Imobiliária</h2>
+<h2 class="mb-5 text-center">
+Sistema de Gestão Imobiliária
+</h2>
 
-<div class="row">
+<div class="row g-4">
 
-<div class="col-md-4">
+    <!-- CADASTRAR IMÓVEL -->
+    <div class="col-md-3">
 
-<a href="/cadastrar" class="btn btn-primary w-100 mb-3">
-Cadastrar Imóvel
-</a>
+        <a href="/cadastrar"
+           class="btn btn-primary w-100 p-4 shadow">
 
-</div>
+            🏠<br><br>
+            Cadastrar Imóvel
 
-<div class="col-md-4">
+        </a>
 
-<a href="/imoveis" class="btn btn-success w-100 mb-3">
-Visualizar Imóveis
-</a>
+    </div>
 
-</div>
+    <!-- LISTAR IMÓVEIS -->
+    <div class="col-md-3">
 
-<div class="col-md-4">
+        <a href="/imoveis"
+           class="btn btn-success w-100 p-4 shadow">
 
-<a href="/pessoas" class="btn btn-warning w-100 mb-3">
-Visualizar Pessoas
-</a>
+            📋<br><br>
+            Visualizar Imóveis
 
-</div>
+        </a>
+
+    </div>
+
+    <!-- PESSOAS -->
+    <div class="col-md-3">
+
+        <a href="/pessoas"
+           class="btn btn-warning w-100 p-4 shadow">
+
+            👥<br><br>
+            Visualizar Pessoas
+
+        </a>
+
+    </div>
+
+    <!-- PAGAMENTOS -->
+    <div class="col-md-3">
+
+        <a href="/pagamentos"
+           class="btn btn-danger w-100 p-4 shadow">
+
+            💰<br><br>
+            Controle de Pagamentos
+
+        </a>
+
+    </div>
 
 </div>
 

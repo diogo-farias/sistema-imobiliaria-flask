@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h2 class="mb-4">
+Pagamentos Cadastrados
+</h2>
+
+<a href="/cadastrar_pagamento"
+class="btn btn-primary mb-3">
+
+Novo Pagamento
+
+</a>
+
+<table class="table table-striped table-bordered">
+
+<tr>
+
+<th>ID</th>
+<th>Pagador</th>
+<th>Valor</th>
+<th>Data</th>
+<th>Forma</th>
+<th>Status</th>
+<th>Ações</th>
+
+</tr>
+
+{% for pagamento in pagamentos %}
+
+<tr>
+
+<td>{{ pagamento[0] }}</td>
+<td>{{ pagamento[1] }}</td>
+<td>R$ {{ pagamento[2] }}</td>
+<td>{{ pagamento[3] }}</td>
+<td>{{ pagamento[4] }}</td>
+<td>{{ pagamento[5] }}</td>
+
+<td>
+
+<a href="/editar_pagamento/{{ pagamento[0] }}"
+class="btn btn-warning btn-sm">
+
+Editar
+
+</a>
+
+<a href="/deletar_pagamento/{{ pagamento[0] }}"
+class="btn btn-danger btn-sm">
+
+Excluir
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/"
+class="btn btn-secondary">
+
+Voltar
+
+</a>
+
+{% endblock %}

@@ -5,17 +5,21 @@ from config import conectar
 
 app = Flask(__name__)
 
-# ------------------------------
+# ==========================================================
 # PAGINA PRINCIPAL
-# ------------------------------
+# ==========================================================
 @app.route("/")
 def index():
 
     return render_template("index.html")
 
 
+# ==========================================================
+# CRUD DE IMOVEIS
+# ==========================================================
+
 # ------------------------------
-# TELA DE CADASTRO DE IMOVEL
+# TELA CADASTRAR IMOVEL
 # ------------------------------
 @app.route("/cadastrar")
 def cadastrar():
@@ -40,11 +44,17 @@ def salvar():
 
     sql = """
     INSERT INTO imoveis
-    (endereco,cidade,valor,quartos,banheiros)
-    VALUES (%s,%s,%s,%s,%s)
+    (endereco, cidade, valor, quartos, banheiros)
+    VALUES (%s, %s, %s, %s, %s)
     """
 
-    dados = (endereco, cidade, valor, quartos, banheiros)
+    dados = (
+        endereco,
+        cidade,
+        valor,
+        quartos,
+        banheiros
+    )
 
     cursor.execute(sql, dados)
 
@@ -74,7 +84,10 @@ def visualizar_imoveis():
     cursor.close()
     conexao.close()
 
-    return render_template("listar_imoveis.html", imoveis=imoveis)
+    return render_template(
+        "listar_imoveis.html",
+        imoveis=imoveis
+    )
 
 
 # ------------------------------
@@ -116,7 +129,10 @@ def editar(id):
     cursor.close()
     conexao.close()
 
-    return render_template("editar_imovel.html", imovel=imovel)
+    return render_template(
+        "editar_imovel.html",
+        imovel=imovel
+    )
 
 
 # ------------------------------
@@ -126,6 +142,7 @@ def editar(id):
 def atualizar():
 
     id = request.form["id"]
+
     endereco = request.form["endereco"]
     cidade = request.form["cidade"]
     valor = request.form["valor"]
@@ -137,11 +154,22 @@ def atualizar():
 
     sql = """
     UPDATE imoveis
-    SET endereco=%s, cidade=%s, valor=%s, quartos=%s, banheiros=%s
+    SET endereco=%s,
+    cidade=%s,
+    valor=%s,
+    quartos=%s,
+    banheiros=%s
     WHERE id=%s
     """
 
-    dados = (endereco, cidade, valor, quartos, banheiros, id)
+    dados = (
+        endereco,
+        cidade,
+        valor,
+        quartos,
+        banheiros,
+        id
+    )
 
     cursor.execute(sql, dados)
 
@@ -153,9 +181,9 @@ def atualizar():
     return redirect("/imoveis")
 
 
-# ==============================
+# ==========================================================
 # CRUD DE PESSOAS
-# ==============================
+# ==========================================================
 
 # ------------------------------
 # CADASTRAR PESSOA
@@ -163,7 +191,9 @@ def atualizar():
 @app.route("/cadastrar_pessoa")
 def cadastrar_pessoa():
 
-    return render_template("cadastrar_pessoa.html")
+    return render_template(
+        "cadastrar_pessoa.html"
+    )
 
 
 # ------------------------------
@@ -182,11 +212,16 @@ def salvar_pessoa():
 
     sql = """
     INSERT INTO pessoas
-    (nome,telefone,email,cpf)
-    VALUES (%s,%s,%s,%s)
+    (nome, telefone, email, cpf)
+    VALUES (%s, %s, %s, %s)
     """
 
-    dados = (nome, telefone, email, cpf)
+    dados = (
+        nome,
+        telefone,
+        email,
+        cpf
+    )
 
     cursor.execute(sql, dados)
 
@@ -195,7 +230,7 @@ def salvar_pessoa():
     cursor.close()
     conexao.close()
 
-    return redirect("/")
+    return redirect("/pessoas")
 
 
 # ------------------------------
@@ -216,7 +251,10 @@ def listar_pessoas():
     cursor.close()
     conexao.close()
 
-    return render_template("listar_pessoas.html", pessoas=pessoas)
+    return render_template(
+        "listar_pessoas.html",
+        pessoas=pessoas
+    )
 
 
 # ------------------------------
@@ -258,7 +296,10 @@ def editar_pessoa(id):
     cursor.close()
     conexao.close()
 
-    return render_template("editar_pessoa.html", pessoa=pessoa)
+    return render_template(
+        "editar_pessoa.html",
+        pessoa=pessoa
+    )
 
 
 # ------------------------------
@@ -268,6 +309,7 @@ def editar_pessoa(id):
 def atualizar_pessoa():
 
     id = request.form["id"]
+
     nome = request.form["nome"]
     telefone = request.form["telefone"]
     email = request.form["email"]
@@ -278,11 +320,20 @@ def atualizar_pessoa():
 
     sql = """
     UPDATE pessoas
-    SET nome=%s, telefone=%s, email=%s, cpf=%s
+    SET nome=%s,
+    telefone=%s,
+    email=%s,
+    cpf=%s
     WHERE id=%s
     """
 
-    dados = (nome, telefone, email, cpf, id)
+    dados = (
+        nome,
+        telefone,
+        email,
+        cpf,
+        id
+    )
 
     cursor.execute(sql, dados)
 
@@ -294,8 +345,183 @@ def atualizar_pessoa():
     return redirect("/pessoas")
 
 
+# ==========================================================
+# CRUD DE PAGAMENTOS
+# ==========================================================
+
 # ------------------------------
+# CADASTRAR PAGAMENTO
+# ------------------------------
+@app.route("/cadastrar_pagamento")
+def cadastrar_pagamento():
+
+    return render_template(
+        "cadastrar_pagamento.html"
+    )
+
+
+# ------------------------------
+# SALVAR PAGAMENTO
+# ------------------------------
+@app.route("/salvar_pagamento", methods=["POST"])
+def salvar_pagamento():
+
+    nome_pagador = request.form["nome_pagador"]
+    valor = request.form["valor"]
+    data_pagamento = request.form["data_pagamento"]
+    forma_pagamento = request.form["forma_pagamento"]
+    status_pagamento = request.form["status_pagamento"]
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = """
+    INSERT INTO pagamentos
+    (
+        nome_pagador,
+        valor,
+        data_pagamento,
+        forma_pagamento,
+        status_pagamento
+    )
+    VALUES (%s, %s, %s, %s, %s)
+    """
+
+    dados = (
+        nome_pagador,
+        valor,
+        data_pagamento,
+        forma_pagamento,
+        status_pagamento
+    )
+
+    cursor.execute(sql, dados)
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return redirect("/pagamentos")
+
+
+# ------------------------------
+# LISTAR PAGAMENTOS
+# ------------------------------
+@app.route("/pagamentos")
+def listar_pagamentos():
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "SELECT * FROM pagamentos"
+
+    cursor.execute(sql)
+
+    pagamentos = cursor.fetchall()
+
+    cursor.close()
+    conexao.close()
+
+    return render_template(
+        "listar_pagamentos.html",
+        pagamentos=pagamentos
+    )
+
+
+# ------------------------------
+# DELETAR PAGAMENTO
+# ------------------------------
+@app.route("/deletar_pagamento/<int:id>")
+def deletar_pagamento(id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "DELETE FROM pagamentos WHERE id = %s"
+
+    cursor.execute(sql, (id,))
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return redirect("/pagamentos")
+
+
+# ------------------------------
+# EDITAR PAGAMENTO
+# ------------------------------
+@app.route("/editar_pagamento/<int:id>")
+def editar_pagamento(id):
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = "SELECT * FROM pagamentos WHERE id = %s"
+
+    cursor.execute(sql, (id,))
+
+    pagamento = cursor.fetchone()
+
+    cursor.close()
+    conexao.close()
+
+    return render_template(
+        "editar_pagamento.html",
+        pagamento=pagamento
+    )
+
+
+# ------------------------------
+# ATUALIZAR PAGAMENTO
+# ------------------------------
+@app.route("/atualizar_pagamento", methods=["POST"])
+def atualizar_pagamento():
+
+    id = request.form["id"]
+
+    nome_pagador = request.form["nome_pagador"]
+    valor = request.form["valor"]
+    data_pagamento = request.form["data_pagamento"]
+    forma_pagamento = request.form["forma_pagamento"]
+    status_pagamento = request.form["status_pagamento"]
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    sql = """
+    UPDATE pagamentos
+    SET nome_pagador=%s,
+    valor=%s,
+    data_pagamento=%s,
+    forma_pagamento=%s,
+    status_pagamento=%s
+    WHERE id=%s
+    """
+
+    dados = (
+        nome_pagador,
+        valor,
+        data_pagamento,
+        forma_pagamento,
+        status_pagamento,
+        id
+    )
+
+    cursor.execute(sql, dados)
+
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return redirect("/pagamentos")
+
+
+# ==========================================================
 # INICIAR SERVIDOR
-# ------------------------------
+# ==========================================================
 if __name__ == "__main__":
     app.run(debug=True)
